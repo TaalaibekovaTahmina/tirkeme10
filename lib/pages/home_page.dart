@@ -3,39 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:tirkeme10/constands/api_const.dart';
 import 'package:tirkeme10/models/weather_model.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  WeatherModel? weatherModel;
   Future<WeatherModel?> fetchData() async {
     final dio = Dio();
     final response = await dio.get(ApiConst.api);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      weatherModel = WeatherModel(
+      final weatherModel = WeatherModel(
         id: response.data['weather'][0]['id'],
         main: response.data['weather'][0]['main'],
         description: response.data['weather'][0]['description'],
         icon: response.data['weather'][0]['icon'],
         temp: response.data['main']['temp'],
-        countri: response.data['sys']['countri'],
-        city: response.data['name']['city'],
+        countri: response.data['sys']['country'],
+        city: response.data['name'],
       );
-      setState(() {});
+      // setState(() {});
       return weatherModel;
     }
   }
 
-  @override
-  void initState() {
-    fetchData();
-    super.initState();
-  }
-
+  // @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,22 +33,30 @@ class _HomePageState extends State<HomePage> {
           'home page',
         ),
       ),
-      body: weatherModel == null
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Center(
-              child: Column(
-              children: [
-                Text(weatherModel!.id.toString()),
-                Text(weatherModel!.main),
-                Text(weatherModel!.description),
-                Text(weatherModel!.icon),
-                Text(weatherModel!.temp),
-                Text(weatherModel!.countri),
-                Text(weatherModel!.city),
-              ],
-            )),
+      body: Center(
+        child: FutureBuilder(
+          future: fetchData(),
+          builder: (ctx, sn) {
+            if (sn.hasData) {
+              return Column(
+                children: [
+                  Text(sn.data!.id.toString()),
+                  Text(sn.data!.main),
+                  Text(sn.data!.description),
+                  Text(sn.data!.icon),
+                  Text('${sn.data!.temp}'),
+                  Text(sn.data!.countri!),
+                  Text(sn.data!.city ?? 'Salam'),
+                ],
+              );
+            } else if (sn.hasError) {
+              return Text(sn.hasError.toString());
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
+      ),
     );
   }
 }
