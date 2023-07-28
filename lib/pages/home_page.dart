@@ -1,6 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:tirkeme10/components/custom_icon_button.dart';
 import 'package:tirkeme10/constands/api_const.dart';
+import 'package:tirkeme10/constands/app_colors.dart';
+import 'package:tirkeme10/constands/app_text.dart';
+import 'package:tirkeme10/constands/app_text_styles.dart';
 import 'package:tirkeme10/models/weather_model.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,32 +33,31 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: AppColors.white,
         title: const Text(
-          'home page',
+          AppText.appBar,
+          style: AppTextStyles.appBar,
         ),
       ),
-      body: Center(
-        child: FutureBuilder(
-          future: fetchData(),
-          builder: (ctx, sn) {
-            if (sn.hasData) {
-              return Column(
-                children: [
-                  Text(sn.data!.id.toString()),
-                  Text(sn.data!.main),
-                  Text(sn.data!.description),
-                  Text(sn.data!.icon),
-                  Text('${sn.data!.temp}'),
-                  Text(sn.data!.countri!),
-                  Text(sn.data!.city ?? 'Salam'),
-                ],
-              );
-            } else if (sn.hasError) {
-              return Text(sn.hasError.toString());
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/foto.jpg'),
+            fit: BoxFit.fill,
+          ),
+        ),
+        child: const Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomIconButton(icon: Icons.near_me),
+                CustomIconButton(icon: Icons.location_city),
+              ],
+            ),
+          ],
         ),
       ),
     );
