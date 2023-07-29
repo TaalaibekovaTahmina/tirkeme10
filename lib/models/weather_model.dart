@@ -5,7 +5,7 @@ class WeatherModel {
     required this.description,
     required this.icon,
     required this.temp,
-    required this.countri,
+    required this.country,
     required this.city,
   });
 
@@ -13,7 +13,7 @@ class WeatherModel {
   final String main;
   final String description;
   final String icon;
-  final String temp;
-  final String countri;
+  final double temp;
+  final String country;
   final String city;
 }

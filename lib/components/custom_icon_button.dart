@@ -15,7 +15,7 @@ class CustomIconButton extends StatelessWidget {
       onPressed: () {},
       icon: Icon(
         icon,
-        color: AppColors.white,
+        color: Colors.blueGrey,
         size: 60,
       ),
     );
