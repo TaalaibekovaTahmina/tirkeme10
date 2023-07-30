@@ -1,8 +1,10 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:tirkeme10/constands/app_colors.dart';
 
-class CustomIconButton extends StatelessWidget {
-  const CustomIconButton({
+class CustomIconsButton extends StatelessWidget {
+  const CustomIconsButton({
     required this.icon,
     super.key,
   });
@@ -15,7 +17,7 @@ class CustomIconButton extends StatelessWidget {
       onPressed: () {},
       icon: Icon(
         icon,
-        color: Colors.blueGrey,
+        color: Colors.amber,
         size: 60,
       ),
     );
