@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       CustomIconsButton(
                         onPressed: () {
-                          ShowBottomSheet();
+                          showBottomSheet();
                         },
                         icon: Icons.location_city,
                       ),
@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
     return (temp! - 273.15).toInt();
   }
 
-  void ShowBottomSheet() {
+  void showBottomSheet() {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
@@ -237,7 +237,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           height: MediaQuery.of(context).size.height * 0.6,
-          color: Colors.amber,
+          // color: Colors.amber,
           child: ListView.builder(
             itemCount: cities.length,
             itemBuilder: (context, index) {
